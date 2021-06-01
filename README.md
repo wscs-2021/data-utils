@@ -1,3 +1,5 @@
+[![example workflow](https://github.com/wscs-2021/data-utils/actions/workflows/test.yml/badge.svg)](https://github.com/wscs-2021/data-utils/actions/workflows/test.yml)
+
 # data-utils
 
 A data utility package for Brane.
