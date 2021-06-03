@@ -1,4 +1,4 @@
-name: data-utils # Package name in Brane
+name: data_utils # Package name in Brane
 version: 0.1.0
 kind: compute
 
