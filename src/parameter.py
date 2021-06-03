@@ -13,7 +13,7 @@ class GenericParameterFactory:
         elif series.dtype.type is np.float64:
             return GenericParameter(variable_name=series.name, variable_type='float')
         else:
-            logging.warning(f"Series of type '{series.dtype}' is not yet supported.")
+            logging.warning(f"Series '{series.name}' of type '{series.dtype}' is not yet supported.")
 
 
 class GenericParameter:

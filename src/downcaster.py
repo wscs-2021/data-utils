@@ -1,5 +1,8 @@
 import numpy as np
 from utils import find_optimal_int_dtype
+import logging
+
+logging.getLogger().setLevel(logging.INFO)
 
 
 class Downcaster:
@@ -19,24 +22,22 @@ class Downcaster:
             elif parameter.data_type == 'ordinal':
                 return self._downcast_ordinal
             else:
-                raise Exception(f'The data type {parameter.data_type} is not supported yet')
+                raise Exception(f'The data type {parameter.data_type} is not supported yet.')
         else:
-            raise Exception(f'The variable type {parameter.variable_type} is not supported yet')
+            raise Exception(f'The variable type {parameter.variable_type} is not supported yet.')
 
     @staticmethod
     def _downcast_int(series, parameter):
-        # if self.verbose: print(f"Attempting downcast on '{series.name}'")
-
         if parameter.data_type is None:
             target_dtype = find_optimal_int_dtype(min=series.min(), max=series.max())
         else:
             target_dtype = parameter.data_type
 
+        logging.info(f"'{parameter.variable_name}' -> {target_dtype}")
+
         if series.dtype != target_dtype:
-            # if self.verbose: print(f"\tDowncast integer: {series.dtype} -> {np.dtype(target_dtype).name}")
             return series.astype(target_dtype)
         else:
-            # if self.verbose: print(f"\tNo downcast.")
             return series
 
     @staticmethod
@@ -49,7 +50,6 @@ class Downcaster:
             else:
                 fprecision = ndigits + 6
 
-            print(fprecision)
             if fprecision > 8:
                 target_dtype = np.float64
             else:
@@ -57,11 +57,10 @@ class Downcaster:
         else:
             target_dtype = parameter.data_type
 
+        logging.info(f"'{parameter.variable_name}' -> {target_dtype}")
         if series.dtype != target_dtype:
-            # if self.verbose: print(f"\tDowncast float: {series.dtype} -> {np.dtype(target_dtype).name}")
             return series.astype(target_dtype)
         else:
-            # if self.verbose: print(f"\tNo downcast.")
             return series
 
     @staticmethod
@@ -76,6 +75,9 @@ class Downcaster:
 
         mapper = {key: value for (value, key) in enumerate(categories)}
         dtype = find_optimal_int_dtype(0, len(categories)-1)
+        logging.info(f"'{parameter.variable_name}' -> {dtype}")
+
+        series = series.fillna(value=-1)
         return series.map(mapper).astype(dtype)
 
     @staticmethod

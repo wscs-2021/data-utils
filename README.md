@@ -100,7 +100,7 @@ schema = [
 # Pass categorical data type
 schema = [
             ['categorical', 'nominal', ['country', 'region']],
-            ['categorical', 'ordinal', ['pressure'], ['low', 'medium', 'high']]
+            ['categorical', 'ordinal', ['pressure'], [['low', 'medium', 'high']]]
          ]
 ```
 
