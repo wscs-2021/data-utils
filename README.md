@@ -36,8 +36,8 @@ Function **downcast**:
 `downcast(input_path, output_dir)`
 
 ```sh
-> import data-utils;
-> downcast("path/to/input.csv", "path/to/output_dir/")
+> import data_utils;
+> downcast("path/to/input.csv", "path/to/output_dir/");
 
 Wrote optimised file to a 'parquet' file.
     Disk Usage: 2.88k KB -> 2.43 KB (-15.57%)
