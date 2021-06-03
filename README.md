@@ -74,3 +74,38 @@ Please provide input for the chosen function:
 ```
 
 You should now see `output.parquet` in `./downcast/test/output.parquet`.
+
+## Schema (optional) 
+
+For more advanced use cases, users may provide additional context to the package for each variable through the use of a schema. For example, the schema can be used to specify the downcast data type, the categories for nominal variables and their order for ordinal ones.
+
+As Brane is currently still in development, dictionnary type variables cannot be passed to Brane functions. Therefore, the schema is implented using nested arrays. The first element of each nested array specifies the variable type (currently supports `integer`, `float` and `categorical`). The second element specifies the downcast type for numerical variables (eg.: `int32`, `uint8`, `float32`, etc.) or categorical type for categorical variables (currently supports `nominal` and `ordinal`). The third element is an array of the variable names as present in the dataset. Categorical types expect a fourth element specifying the categories. It is optional for nominal variables and mandatory for ordinal variables (as it is used to derive the ordering).
+
+
+Below we provide some example schemas for different data types.
+
+```
+# Pass downcast data type (single)
+schema = [['integer', 'int32', ['population']]]
+
+# Pass downcast data type (multiple, same )
+schema = [['integer', 'int8', ['temperature', 'height']]]
+
+# Pass downcast data type (multiple, different)
+schema = [
+            ['integer', 'int32', ['population']],
+            ['float', 'float32', ['surface']]
+         ]
+         
+# Pass categorical data type
+schema = [
+            ['categorical', 'nominal', ['country', 'region']],
+            ['categorical', 'ordinal', ['pressure'], ['low', 'medium', 'high']]
+         ]
+```
+
+The schema can simply be passed to the function as follows: 
+
+```
+> downcast("path/to/input.csv", "path/to/output_dir/", schema)
+```
