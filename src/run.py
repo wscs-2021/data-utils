@@ -30,14 +30,14 @@ if __name__ == "__main__":
   # output_dir = '../data/'
 
   # Example schema
-  schema = [
-    ['categorical', 'nominal', ['species', 'island', 'sex'], [
-        ['Adelie', 'Chinstrap', 'Gentoo'], ['Biscoe', 'Dream', 'Torgersen'], ['MALE', 'FEMALE']]
-     ]
-  ]
+  # schema = [
+  #   ['categorical', 'nominal', ['species', 'island', 'sex'], [
+  #       ['Adelie', 'Chinstrap', 'Gentoo'], ['Biscoe', 'Dream', 'Torgersen'], ['MALE', 'FEMALE']]
+  #    ]
+  # ]
 
   functions = {
     "downcast": downcast,
   }
-  output = functions[command](input_path, output_dir, schema)
+  output = functions[command](input_path, output_dir)
   print(yaml.dump({"output": output}))
